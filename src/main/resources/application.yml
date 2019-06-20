@@ -1,0 +1,44 @@
+server:
+  port: 8089
+
+# mybatis 配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.entity
+
+spring:
+  shardingsphere:
+    datasource:
+      names: user0,user1
+      user0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/user0?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&maxReconnects=15000&allowMultiQueries=true&useSSL=false
+        username: root
+        password: 123456
+
+      user1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/user1?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&maxReconnects=15000&allowMultiQueries=true&useSSL=false
+        username: root
+        password: 123456
+
+# 分库配置 ， 根据user_id分库
+    sharding:
+      default-database-strategy:
+        standard:
+          precise-algorithm-class-name: com.example.config.DatabaseShardingAlgorithm
+          sharding-column: user_id
+
+# 分表配置，根据user_id分表
+      tables:
+        user_info:
+          table-strategy:
+            standard:
+              preciseAlgorithmClassName: com.example.config.TableShardingAlgorithm
+              sharding-column: user_id
+
+    props:
+      sql:
+        show: true
