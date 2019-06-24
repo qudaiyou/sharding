@@ -30,7 +30,7 @@ spring:
         standard:
           precise-algorithm-class-name: com.example.config.DatabaseShardingAlgorithm
           sharding-column: user_id
-
+    
 # 分表配置，根据user_id分表
       tables:
         user_info:
@@ -39,6 +39,8 @@ spring:
             standard:
               preciseAlgorithmClassName: com.example.config.TableShardingAlgorithm
               sharding-column: user_id
+      #广播表：意思就是不用分表的表
+      #broadcast-tables:
 
     props:
       sql:
