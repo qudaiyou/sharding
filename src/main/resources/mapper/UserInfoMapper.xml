@@ -110,4 +110,8 @@
         password = #{password,jdbcType=VARCHAR}
         where user_id = #{userId,jdbcType=BIGINT}
     </update>
+    
+    <select id="query" resultType="Long">
+        select user_id  from user_info order by user_id desc limit 1
+    </select>
 </mapper>
