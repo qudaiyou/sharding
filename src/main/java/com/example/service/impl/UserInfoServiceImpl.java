@@ -20,4 +20,13 @@ public class UserInfoServiceImpl implements UserInfoService {
     public int insert(UserInfo userInfo) {
         return userInfoMapper.insert(userInfo);
     }
+    
+    @Override
+    public long query() {
+        Long a = userInfoMapper.query();
+        if (a == null) {
+            return 0;
+        }
+        return a;
+    }
 }
