@@ -1,7 +1,7 @@
 server:
   port: 8089
 
-# mybatis ÅäÖÃ
+# mybatis é…ç½®
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.example.entity
@@ -24,16 +24,17 @@ spring:
         username: root
         password: 123456
 
-# ·Ö¿âÅäÖÃ £¬ ¸ù¾Ýuser_id·Ö¿â
+# åˆ†åº“é…ç½® ï¼Œ æ ¹æ®user_idåˆ†åº“
     sharding:
       default-database-strategy:
         standard:
           precise-algorithm-class-name: com.example.config.DatabaseShardingAlgorithm
           sharding-column: user_id
 
-# ·Ö±íÅäÖÃ£¬¸ù¾Ýuser_id·Ö±í
+# åˆ†è¡¨é…ç½®ï¼Œæ ¹æ®user_idåˆ†è¡¨
       tables:
         user_info:
+          actual-data-nodes: user$->{0..1}.user_info$->{0..1}
           table-strategy:
             standard:
               preciseAlgorithmClassName: com.example.config.TableShardingAlgorithm
